@@ -28,4 +28,9 @@ export default class TodoList {
   addProject(newProject) {
     this.projects.push(newProject);
   }
+
+  findProject(name) {
+    const foundProject = this.projects.find((project) => (project.name = name));
+    return foundProject;
+  }
 }
