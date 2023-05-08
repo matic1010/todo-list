@@ -8,13 +8,15 @@ export default class UI {
   }
 
   render() {
-    const contentContainer = document.getElementById('content');
+    const sidebar = document.querySelector('.sidebar');
+    const taskContainer = document.querySelector('.task-view');
     const projectList = this.generateProjects();
     const taskList = this.generateTasks();
-    const taskInput = this.generatetTaskInput();
-    contentContainer.appendChild(projectList);
-    contentContainer.appendChild(taskList);
-    contentContainer.appendChild(taskInput);
+    const taskInput = this.generateTaskInput();
+
+    sidebar.appendChild(projectList);
+    taskContainer.appendChild(taskList);
+    taskContainer.appendChild(taskInput);
   }
 
   generateProjects() {
@@ -49,15 +51,15 @@ export default class UI {
 
   generateTask(task) {
     const taskElement = document.createElement('li');
+    if (task.completed) {
+      taskElement.classList.add('completed');
+    }
     taskElement.textContent = task.name;
-    const toggleCompletedButton = document.createElement('button');
-    toggleCompletedButton.innerHTML = 'completed';
-    toggleCompletedButton.addEventListener('click', () => {
+    taskElement.addEventListener('click', () => {
       const taskToToggle = task;
       taskToToggle.toggleCompleted();
-      taskElement.classList.toggle('completed');
+      this.reload();
     });
-    taskElement.appendChild(toggleCompletedButton);
     return taskElement;
   }
 
@@ -85,7 +87,7 @@ export default class UI {
     return projectInputDiv;
   }
 
-  generatetTaskInput() {
+  generateTaskInput() {
     const taskInputDiv = document.createElement('div');
     const taskInput = document.createElement('input');
     taskInput.id = 'task-input';
@@ -111,8 +113,10 @@ export default class UI {
   }
 
   reload() {
-    const contentContainer = document.getElementById('content');
-    contentContainer.innerHTML = '';
+    const taskContainer = document.querySelector('.task-view');
+    const sidebar = document.querySelector('.sidebar');
+    taskContainer.innerHTML = '';
+    sidebar.innerHTML = '';
     this.render();
   }
 }
