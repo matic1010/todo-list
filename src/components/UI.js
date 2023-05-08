@@ -20,6 +20,12 @@ export default class UI {
     const projectListElements = this.todoList.getProjects().map((project) => {
       const listElement = document.createElement('li');
       listElement.textContent = project.name;
+      listElement.addEventListener('click', (e) => {
+        // change current project to project with the name of selected list element
+        const projectName = e.target.textContent;
+        this.todoList.setSelectedProject(projectName);
+        this.reload();
+      });
       return listElement;
     });
     projectListElements.forEach((element) => {

@@ -19,7 +19,7 @@ export default class TodoList {
     return this.selectedProject;
   }
 
-  setSelectedProjec(name) {
+  setSelectedProject(name) {
     this.selectedProject = this.projects.find(
       (project) => project.name === name
     );
