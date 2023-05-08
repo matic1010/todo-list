@@ -6,13 +6,13 @@ export default class UI {
   }
 
   render() {
-    const app = document.getElementById('app');
+    const contentContainer = document.getElementById('content');
     const projectList = this.generateProjects();
     const taskList = this.generateTasks();
     const taskInput = this.generatetTaskInput();
-    app.appendChild(projectList);
-    app.appendChild(taskList);
-    app.appendChild(taskInput);
+    contentContainer.appendChild(projectList);
+    contentContainer.appendChild(taskList);
+    contentContainer.appendChild(taskInput);
   }
 
   generateProjects() {
@@ -70,8 +70,8 @@ export default class UI {
   }
 
   reload() {
-    const app = document.getElementById('app');
-    app.innerHTML = '';
+    const contentContainer = document.getElementById('content');
+    contentContainer.innerHTML = '';
     this.render();
   }
 }
