@@ -1,3 +1,4 @@
+import Project from './Project';
 import Task from './Task';
 
 export default class UI {
@@ -31,6 +32,7 @@ export default class UI {
     projectListElements.forEach((element) => {
       projectList.appendChild(element);
     });
+    projectList.appendChild(this.generateNewProjectInput());
     return projectList;
   }
 
@@ -46,6 +48,28 @@ export default class UI {
       taskList.appendChild(element);
     });
     return taskList;
+  }
+
+  generateNewProjectInput() {
+    const projectInputDiv = document.createElement('div');
+    const projectInput = document.createElement('input');
+    projectInput.id = 'project-input';
+    const addProjectButton = document.createElement('button');
+    addProjectButton.innerHTML = '+ Add Project';
+    addProjectButton.addEventListener('click', () => {
+      const projectName = projectInput.value;
+      if (projectName) {
+        this.todoList.addProject(new Project(projectName));
+        this.reload();
+      }
+    });
+
+    projectInput.setAttribute('type', 'text');
+
+    projectInputDiv.appendChild(projectInput);
+    projectInputDiv.appendChild(addProjectButton);
+
+    return projectInputDiv;
   }
 
   generatetTaskInput() {
