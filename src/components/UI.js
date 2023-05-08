@@ -1,5 +1,6 @@
 import Project from './Project';
 import Task from './Task';
+import '../style.css';
 
 export default class UI {
   constructor(todoList) {
@@ -39,15 +40,25 @@ export default class UI {
   generateTasks() {
     const taskList = document.createElement('ul');
     const tasks = this.todoList.getSelectedProject().getTasks();
-    const taskListElements = tasks.map((task) => {
-      const listElement = document.createElement('li');
-      listElement.textContent = task.name;
-      return listElement;
-    });
+    const taskListElements = tasks.map((task) => this.generateTask(task));
     taskListElements.forEach((element) => {
       taskList.appendChild(element);
     });
     return taskList;
+  }
+
+  generateTask(task) {
+    const taskElement = document.createElement('li');
+    taskElement.textContent = task.name;
+    const toggleCompletedButton = document.createElement('button');
+    toggleCompletedButton.innerHTML = 'completed';
+    toggleCompletedButton.addEventListener('click', () => {
+      const taskToToggle = task;
+      taskToToggle.toggleCompleted();
+      taskElement.classList.toggle('completed');
+    });
+    taskElement.appendChild(toggleCompletedButton);
+    return taskElement;
   }
 
   generateNewProjectInput() {
