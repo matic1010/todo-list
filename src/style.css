@@ -32,6 +32,10 @@ li {
   margin-bottom: 8px;
 }
 
+.selected {
+  text-decoration: underline;
+}
+
 header {
   height: 64px;
   display: flex;
